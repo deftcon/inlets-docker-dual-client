@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  inlets_client:
+    image: inlets_dual_client
+    build: .
+    environment:
+      - PRO_UPSTREAM=${INLETS_PRO_TARGET}
+      - PRO_TOKEN=${INLETS_PRO_TOKEN}
+      - PRO_REMOTE=wss://${INLETS_PRO_SERVER}/connect
+      - PRO_LICENSE=${INLETS_PRO_LICENSE}
+      - PRO_PORTS=${INLETS_PRO_PORTS}
+      - UPSTREAM=${INLETS_SERVER}=${TARGET}
+      - TOKEN=${TOKEN}
+      - REMOTE=wss://${INLETS_SERVER}
+    restart: always
+
+
+  
