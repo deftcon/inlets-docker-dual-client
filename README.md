@@ -20,13 +20,20 @@ INLETS_PRO_TARGET=<FQDN of target server>
 INLETS_PRO_TOKEN=<Token to authenticate to the Inlets PRO server>
 INLETS_PRO_SERVER=<FQDN of the Inlets Pro server>
 INLETS_PRO_LICENSE=<License file contents>
-INLETS_PRO_PORTS=80,8123
+INLETS_PRO_PORTS=8000,8001
 LICENSE=<License file contents>
 PORTS=<Comma separated list of TCP ports to be tunneled>
 ```
-`TARGET` is the URL of the app being shared. It can be on the same machine as the Inlets client container or on another machine that is reachable from the client machine.  Note that `:port` is required. Make sure the port does not overlap any ports specified in `PORTS`.    
+`TARGET` is the FQDN to the server with the app being shared. It can be on the same machine as the Inlets client container or on another machine that is reachable from the client machine.  Note that `:port` is required. Make sure the port does not overlap any ports specified in `PORTS`.    
+
+`INLETS_PRO_TARGET` is also the FQDN to the server with the app being shared, however Inlets Pro allows sharing of more than a single port and therefore the ports are specified in the `PORTS` configuration parameter. 
+ 
+`PORTS` indicates the TCP ports that will be tunnelled to the target host using Inlets Pro.  
+
+> NOTE: TCP 443 is not supported for the `PORTS` parameter.  The configuration will be taken, but the traffic will never be forwwarded to the remote server.  Use the `TARGET` parameter for forwarding of HTTPS traffic. 
 
 If running the Docker client on a Mac,  Docker runs in a VM and thus for the Inlets container to reach an application shared from the host you must specify a special hostname `host.docker.internal` to reach the host from the container.  As an example,  to share an application running on the Mac host on TCP port 5000,  the .env file setting would be:  `TARGET=http://host.docker.internal` and `PORTS=5000`.
+
 
 ## Running
 Make sure the `.env` file is in place and then run the following command:
